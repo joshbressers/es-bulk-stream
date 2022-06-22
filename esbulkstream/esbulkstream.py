@@ -14,13 +14,22 @@ class Documents:
         else:
             es_url = os.environ['ESURL']
 
-        self.es = Elasticsearch([es_url])
+        if 'ESCERT' in os.environ:
+            cert = os.environ['ESCERT']
+        else:
+            cert = None
+
+        if cert:
+            self.es = Elasticsearch([es_url], ca_certs=cert)
+        else:
+            self.es = Elasticsearch([es_url])
+
         self.index = index
         self.frequency = update_frequency
         self.docs = []
 
         # First let's see if the index exists
-        if self.es.indices.exists(self.index) is False:
+        if self.es.indices.exists(index=self.index) is False:
             # We have to create it and add a mapping, but only if a
             # mapping.json file exists
             if os.path.exists(mapping):
