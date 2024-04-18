@@ -21,6 +21,9 @@ setuptools.setup(
         "Operating System :: OS Independent",
     ],
     python_requires='>=3',
+    install_requires=[
+        'elasticsearch'
+    ],
     setup_requires=['pytest-runner', 'Elasticsearch'],
     tests_require=['pytest']
 )
