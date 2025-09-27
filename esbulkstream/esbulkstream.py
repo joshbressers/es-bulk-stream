@@ -67,6 +67,10 @@ class Documents:
             for ok, item in elasticsearch.helpers.streaming_bulk(self.es, self.docs, max_retries=2):
                 if not ok:
                     errors.append(item)
+                    doc_ids = []
+                    for i in self.docs:
+                        doc_ids.append(i[_id])
+                    errors.sppend(doc_ids)
         except Exception as e:
             errors.append(e)
 
