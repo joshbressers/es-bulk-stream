@@ -20,9 +20,9 @@ class Documents:
             cert = None
 
         if cert:
-            self.es = Elasticsearch([es_url], ca_certs=cert, timeout=30)
+            self.es = Elasticsearch([es_url], ca_certs=cert, request_timeout=30)
         else:
-            self.es = Elasticsearch([es_url], timeout=30)
+            self.es = Elasticsearch([es_url], request_timeout=30)
 
         if delete is True:
             if self.es.indices.exists(index=index):
